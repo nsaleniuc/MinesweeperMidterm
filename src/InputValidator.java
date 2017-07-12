@@ -115,13 +115,16 @@ public class InputValidator {
         }while (!validChoice);
         return userCont;
     }
-    public String checkForValidChoice(String choice1, String choice2){
+
+    public boolean checkForValidChoice(String choice1, String choice2){
         boolean validChoice;
         String answer = input.nextLine();
         do {
             if (answer.equalsIgnoreCase(choice1)) {
+                userCont = true;
                 validChoice = true;
             } else if (answer.equalsIgnoreCase(choice2)) {
+                userCont = false;
                 validChoice = true;
             } else {
                 System.out.print("\nnot a valid choice! please enter \"" + choice1 + "\" or \"" + choice2 + "\": ");
@@ -129,7 +132,7 @@ public class InputValidator {
                 answer = input.nextLine();
             }
         }while (!validChoice);
-        return answer;
+        return userCont;
     }
 
     public String getNonEmptyString(String prompt){
