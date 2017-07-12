@@ -14,6 +14,7 @@ public class MinefieldApp {
         }else {
             getDifficultyToPlay();
         }
+        minefield.printMinefield();
 
     }
 

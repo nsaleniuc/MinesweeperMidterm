@@ -44,10 +44,24 @@ public class Minefield {
         this.rows = rows;
         this.columns = columns;
         this.mineField = new Cell[rows][columns];
+        setAllCellsToUnknown();
+    }
+
+    public void setAllCellsToUnknown(){
+        for (int i = 0; i < mineField.length; i++) {
+            for (int j = 0; j < mineField[i].length; j++) {
+                mineField[i][j] = new Cell(false,false,0,false);
+            }
+        }
     }
 
     public void printMinefield() {
-
+        for (Cell[] aMineField : mineField) {
+            System.out.println();
+            for (Cell anAMineField : aMineField) {
+                System.out.print(anAMineField.toString() + "\t");
+            }
+        }
     }
 
     public void populateMines() {
