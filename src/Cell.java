@@ -46,4 +46,20 @@ public class Cell {
     public void setKnown(boolean known) {
         isKnown = known;
     }
+
+    @Override
+    public String toString() {
+        if (isKnown) {
+            if (isBomb) {
+                return "*";
+            }
+            if (isFlag) {
+                return "#";
+            } else {
+                return String.valueOf(numOfMinesNearby);
+            }
+        } else {
+            return "?";
+        }
+    }
 }
