@@ -49,14 +49,17 @@ public class Cell {
 
     @Override
     public String toString() {
-        if (isBomb){
-            return "*";
-        }
-        if (isFlag){
-            return "#";
-        }
-        else {
-            return String.valueOf(numOfMinesNearby);
+        if (isKnown) {
+            if (isBomb) {
+                return "*";
+            }
+            if (isFlag) {
+                return "#";
+            } else {
+                return String.valueOf(numOfMinesNearby);
+            }
+        } else {
+            return "?";
         }
     }
 }
