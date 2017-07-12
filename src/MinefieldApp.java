@@ -1,3 +1,5 @@
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.Scanner;
 
 /*
@@ -6,12 +8,11 @@ public class MinefieldApp {
     private static InputValidator inputValidator = new InputValidator();
     private static Minefield minefield;
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
 
         if (checkIfUserWantsCustomGame()){
-            getUserSelection(scan);
+            getUserSelection();
         }else {
-            getDifficultyToPlay(scan);
+            getDifficultyToPlay();
         }
 
     }
@@ -21,15 +22,20 @@ public class MinefieldApp {
         return inputValidator.checkForValidChoice("y", "n");
     }
 
-    private static void getUserSelection(Scanner scan) {
-        System.out.println("\nSelect which row and column you would like to reveal: ");
+    private static void getUserSelection() {
+        System.out.println("\nSelect how many rows, columns, and bombs would like: ");
         System.out.print("Row: ");
-        int rowSelected = scan.nextInt();
+        int rowSelected = inputValidator.getValidPositiveInt();
         System.out.print("Column: ");
-        int colSelected = scan.nextInt();
+        int colSelected = inputValidator.getValidPositiveInt();
+        System.out.print("Bombs: ");
+        int bombs = inputValidator.getValidPositiveInt();
+        //TODO add a check so that the bombs cant exceed the number of cells
+        minefield = new Minefield(bombs, rowSelected, colSelected);
+
     }
 
-    private static void getDifficultyToPlay(Scanner scan) {
+    private static void getDifficultyToPlay() {
         System.out.println("Welcome to Minesweeper!\nChoose the level of difficulty to play: ");
         System.out.print("Beginner - 1\nIntermediate - 2\nExpert - 3\nChoose 1, 2, or 3: ");
         int menuChoice = inputValidator.getValidIntBetweenTwoNumbers(1,3);
