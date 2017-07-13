@@ -36,9 +36,8 @@ public class MinefieldApp {
         int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
         minefield.setFlag(x - 1, y - 1);
     }
-
+//(x,y) coordinates to open cell
     private static void openSelectedCell() {
-
         System.out.println("\nEnter coordinates of cell: \nRow: ");
         int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
         System.out.println("Column: ");
@@ -57,14 +56,14 @@ public class MinefieldApp {
         minefield = new Minefield(bombs, rowSelected, colSelected);
 
     }
-
+//gives input from setUpMineField
     private static int getDifficultyToPlay() {
         System.out.println("Choose the level of difficulty to play: ");
         System.out.print("Beginner - 1\nIntermediate - 2\nExpert - 3\nCustom - 4\nChoose 1, 2, 3 or 4: ");
         int menuChoice = inputValidator.getValidIntBetweenTwoNumbers(1, 4);
         return menuChoice;
     }
-
+//Choose beginner, intermediate, expert or custom grid, receives input from getDifficultyToPlay
     private static void setUpMineField(int menuChoice) {
         switch (menuChoice) {
             case 1:

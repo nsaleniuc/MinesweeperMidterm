@@ -56,7 +56,7 @@ public class Minefield {
             System.out.println();
         }
     }
-// generate random (x,y) coordinates to set mines. if cell empty, fill with mine, else
+// generate random (x,y) coordinates to set mines.
     public void populateMines() {
         for (int i = 0; i < numOfMines; i++) {
             int mineRow = (int) (Math.random() * rows);
@@ -79,7 +79,7 @@ public class Minefield {
             }
         }
     }
-
+//check around each individual cell for mines or empty cells
     private ArrayList<Cell> getListOfCellsNearby(int i, int j) {
         ArrayList<Cell> listOfCellsNearby = new ArrayList<>();
         //Top left Corner
@@ -164,7 +164,7 @@ public class Minefield {
         }
     }
 
-
+//used recursion to open all empty cells.
     private void openAllNearbyZeros(int i, int j) {
         ArrayList<Cell> cellsNearby = getListOfCellsNearby(i, j);
         for (int k = 0; k < cellsNearby.size(); k++) {
@@ -191,7 +191,7 @@ public class Minefield {
             mineField[i][j].setFlag(true);
         }
     }
-
+//show where all mines are after you lose
     public void gameOver() {
         System.out.println("YOU LOSE! \u2639");
         for (int i = 0; i < mineField.length; i++) {
@@ -201,7 +201,7 @@ public class Minefield {
         }
         isGameOver = true;
     }
-
+//if number of uncovered cells(mines) equals amount of bombs, you win
     public void checkIfGameWon() {
         int numUnknownCells = 0;
         for (int i = 0; i < mineField.length; i++) {
