@@ -39,9 +39,9 @@ public class MinefieldApp {
 //(x,y) coordinates to open cell
     private static void openSelectedCell() {
         System.out.println("\nEnter coordinates of cell: \nRow: ");
-        int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
+        int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
         System.out.println("Column: ");
-        int x = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
+        int x = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
         minefield.checkCell(x - 1, y - 1);
     }
 
