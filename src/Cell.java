@@ -8,11 +8,11 @@ public class Cell {
     private boolean isFlag;
     private int numOfMinesNearby = 0;
     private boolean isKnown;
-    private  int x;
+    private int x;
     private int y;
 
 
-    public Cell(boolean isBomb, boolean isFlag, int numOfMinesNearby, boolean isKnown,int x,int y) {
+    public Cell(boolean isBomb, boolean isFlag, int numOfMinesNearby, boolean isKnown, int x, int y) {
         this.isBomb = isBomb;
         this.isFlag = isFlag;
         this.numOfMinesNearby = numOfMinesNearby;
@@ -25,16 +25,8 @@ public class Cell {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public boolean isBomb() {
@@ -73,15 +65,14 @@ public class Cell {
     public String toString() {
         if (isKnown) {
             if (isBomb) {
-                return "*";
-            }
-            else {
+                return "\u2622";
+            } else {
                 return String.valueOf(numOfMinesNearby);
             }
         } else if (isFlag) {
-            return "#";
-        }else {
-            return "[]";
+            return "\u2690";
+        } else {
+            return "\u29C8";
         }
     }
 }
