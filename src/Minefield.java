@@ -55,7 +55,7 @@ public class Minefield {
     private void setAllCellsToUnknown() {
         for (int i = 0; i < mineField.length; i++) {
             for (int j = 0; j < mineField[i].length; j++) {
-                mineField[i][j] = new Cell(false, false, 0, false);
+                mineField[i][j] = new Cell(false, false, 0, false, j,i);
             }
         }
     }
@@ -179,6 +179,12 @@ public class Minefield {
         for (int i = 0; i < mineField.length; i++) {
             for (int j = 0; j < mineField[i].length; j++) {
                 ArrayList<Cell> listOfCellsNearby = getListOfCellsNearby(i,j);
+                for (int k = 0; k < listOfCellsNearby.size(); k++) {
+                    if (listOfCellsNearby.get(k).isBomb()){
+                        mineField[i][j].setNumOfMinesNearby(mineField[i][j].getNumOfMinesNearby()+1);
+                    }
+
+                }
             }
         }
     }
@@ -195,8 +201,16 @@ public class Minefield {
     }
 
     public void openAllNearbyZeros(int i, int j) {
-        if (getCellBelow(i,j).getNumOfMinesNearby() == 0){
-            getCellBelow(i,j).setKnown(true);
+        ArrayList<Cell> cellsNearby = getListOfCellsNearby(i,j);
+        for (int k = 0; k < cellsNearby.size(); k++) {
+            if (!cellsNearby.get(k).isKnown()) {
+                if (cellsNearby.get(k).getNumOfMinesNearby() == 0) {
+                    cellsNearby.get(k).setKnown(true);
+                    openAllNearbyZeros(cellsNearby.get(k).getY(), cellsNearby.get(k).getX());
+                }else if (!cellsNearby.get(k).isBomb()){
+                    cellsNearby.get(k).setKnown(true);
+                }
+            }
         }
     }
 
