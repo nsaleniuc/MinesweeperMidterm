@@ -56,7 +56,7 @@ public class Minefield {
             System.out.println();
         }
     }
-
+// generate random (x,y) coordinates to set mines. if cell empty, fill with mine, else
     public void populateMines() {
         for (int i = 0; i < numOfMines; i++) {
             int mineRow = (int) (Math.random() * rows);
@@ -193,7 +193,7 @@ public class Minefield {
     }
 
     public void gameOver() {
-        System.out.println("YOU LOSE!");
+        System.out.println("YOU LOSE! \u2639");
         for (int i = 0; i < mineField.length; i++) {
             for (int j = 0; j < mineField[i].length; j++) {
                 mineField[i][j].setKnown(true);
@@ -212,7 +212,7 @@ public class Minefield {
             }
         }
         if (numUnknownCells == numOfMines) {
-            System.out.println("YOU WIN");
+            System.out.println("YOU WIN \u263A");
             isGameOver = true;
             for (int i = 0; i < mineField.length; i++) {
                 for (int j = 0; j < mineField[i].length; j++) {

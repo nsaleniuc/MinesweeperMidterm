@@ -30,19 +30,19 @@ public class MinefieldApp {
     }
 
     private static void setFlag() {
-        System.out.println("Flag or unflag.\nColumn: ");
+        System.out.println("Flag or unflag.\nRow: ");
         int x = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
-        System.out.println("Row: ");
+        System.out.println("Column: ");
         int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
         minefield.setFlag(x - 1, y - 1);
     }
 
     private static void openSelectedCell() {
 
-        System.out.println("\nEnter coordinates of cell: \nColumn: ");
-        int x = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
-        System.out.println("Row: ");
-        int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
+        System.out.println("\nEnter coordinates of cell: \nRow: ");
+        int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
+        System.out.println("Column: ");
+        int x = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
         minefield.checkCell(x - 1, y - 1);
     }
 
