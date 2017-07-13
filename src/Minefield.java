@@ -1,8 +1,10 @@
+import java.awt.*;
+
 /**
  * Created by Nathan Saleniuc on 7/12/2017.
  */
 public class Minefield {
-    public Cell[][] mineField;
+    private Cell[][] mineField;
     private int numOfMines;
     private int rows;
     private int columns;
@@ -45,17 +47,19 @@ public class Minefield {
         this.columns = columns;
         this.mineField = new Cell[rows][columns];
         setAllCellsToUnknown();
+        populateMines();
+        showNumMinesNearby();
     }
 
-    private void setAllCellsToUnknown(){
+    private void setAllCellsToUnknown() {
         for (int i = 0; i < mineField.length; i++) {
             for (int j = 0; j < mineField[i].length; j++) {
-                mineField[i][j] = new Cell(false,false,0,false);
+                mineField[i][j] = new Cell(false, false, 0, true);
             }
         }
     }
 
-    private void printMinefield() {
+    public void printMinefield() {
         for (Cell[] aMineField : mineField) {
             System.out.println();
             for (Cell anAMineField : aMineField) {
@@ -66,10 +70,9 @@ public class Minefield {
 
     public void populateMines() {
         for (int i = 0; i < numOfMines; i++) {
-
-            int mineRow = (int) Math.random()*rows;
-            int mineCol = (int) Math.random()*columns;
-            if(!mineField[mineRow][mineCol].isBomb()) {
+            int mineRow = (int) (Math.random() * rows);
+            int mineCol = (int) (Math.random() * columns);
+            if (!mineField[mineRow][mineCol].isBomb()) {
                 mineField[mineRow][mineCol].setBomb(true);
             } else {
                 i--;
@@ -79,11 +82,96 @@ public class Minefield {
     }
 
     public void checkCell(int row, int columns) {
-
+        Point userPoint = new Point(columns,row);
     }
 
-    public void showNumMinesNearby() {
+    private void showNumMinesNearby() {
+        for (int i = 0; i < mineField.length; i++) {
+            for (int j = 0; j < mineField[i].length; j++) {
 
+                //Top left Corner
+                if (i==0 && j==0){
+                    checkBelow(i,j);
+                    checkRight(i,j);
+                    checkBottomRight(i,j);
+                }
+
+                //Top
+                else if(i == 0 && j > 0 && j < mineField[i].length-1){
+                    checkBelow(i,j);
+                    checkRight(i,j);
+                    checkBottomRight(i,j);
+                    checkLeft(i,j);
+                    checkBottomLeft(i,j);
+                }
+
+                //top Right Corner
+                else if(i == 0 && j == mineField[i].length-1){
+                    checkBelow(i,j);
+                    checkLeft(i,j);
+                    checkBottomLeft(i,j);
+                }
+
+
+                // if cell is at the Right wall
+                else if(i>0 && i < mineField.length-1 && j == mineField[i].length-1){
+                    checkAbove(i,j);
+                    checkTopLeft(i,j);
+                    checkLeft(i,j);
+                    checkBottomLeft(i,j);
+                    checkBelow(i, j);
+
+                }
+
+                //Bottom Right Corner
+                else if (i == mineField.length-1 && j == mineField[i].length-1){
+                    checkAbove(i, j);
+                    checkTopLeft(i, j);
+                    checkLeft(i, j);
+                }
+
+                //Bottom
+                else if (i == mineField.length-1 && j > 0 && j < mineField[i].length-1){
+                    checkAbove(i, j);
+                    checkLeft(i, j);
+                    checkTopLeft(i,j);
+                    checkTopRight(i, j);
+                    checkRight(i, j);
+                }
+                //BottomLeft Corner
+                else if (i == mineField.length-1 && j == 0){
+                    checkAbove(i, j);
+                    checkRight(i, j);
+                    checkTopRight(i, j);
+                }
+
+                //Check Left Wall
+                else if (i < mineField.length-1 && i > 0 && j ==0){
+                    checkRight(i, j);
+                    checkTopRight(i, j);
+                    checkAbove(i, j);
+                    checkBelow(i, j);
+                    checkBottomRight(i, j);
+                }
+                else {
+                    checkAll(i, j);
+                }
+
+
+
+            }
+        }
+    }
+
+    private void checkAll(int i, int j) {
+        checkBottomRight(i, j);
+        checkBottomLeft(i, j);
+        checkBelow(i, j);
+        checkAbove(i, j);
+        checkTopRight(i, j);
+        checkRight(i, j);
+        checkTopLeft(i, j);
+        checkLeft(i, j);
     }
 
     public void openAllNearbyZeros() {
@@ -97,5 +185,54 @@ public class Minefield {
     public void checkIfGameWon() {
 
     }
+
+    private void checkBelow(int i, int j){
+        if (mineField[i + 1][j].isBomb()) {
+            mineField[i][j].setNumOfMinesNearby(mineField[i][j].getNumOfMinesNearby() + 1);
+        }
+
+    }
+    private void checkRight(int i, int j){
+        if (mineField[i][j + 1].isBomb()) {
+            mineField[i][j].setNumOfMinesNearby(mineField[i][j].getNumOfMinesNearby() + 1);
+        }
+    }
+    private void checkLeft(int i, int j){
+        if (mineField[i][j - 1].isBomb()) {
+            mineField[i][j].setNumOfMinesNearby(mineField[i][j].getNumOfMinesNearby() + 1);
+        }
+
+    }
+    private void checkAbove(int i, int j){
+        if (mineField[i - 1][j].isBomb()) {
+            mineField[i][j].setNumOfMinesNearby(mineField[i][j].getNumOfMinesNearby() + 1);
+        }
+
+    }
+    private void checkTopLeft(int i, int j){
+        if (mineField[i - 1][j - 1].isBomb()) {
+            mineField[i][j].setNumOfMinesNearby(mineField[i][j].getNumOfMinesNearby() + 1);
+        }
+
+    }
+    private void checkTopRight(int i, int j){
+        if (mineField[i - 1][j + 1].isBomb()) {
+            mineField[i][j].setNumOfMinesNearby(mineField[i][j].getNumOfMinesNearby() + 1);
+        }
+
+    }
+    private void checkBottomLeft(int i, int j){
+        if (mineField[i + 1][j - 1].isBomb()) {
+            mineField[i][j].setNumOfMinesNearby(mineField[i][j].getNumOfMinesNearby() + 1);
+        }
+
+    }
+    private void checkBottomRight(int i, int j){
+        if (mineField[i + 1][j + 1].isBomb()) {
+            mineField[i][j].setNumOfMinesNearby(mineField[i][j].getNumOfMinesNearby() + 1);
+        }
+
+    }
+
 
 }
