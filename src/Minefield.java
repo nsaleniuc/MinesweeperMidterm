@@ -47,7 +47,7 @@ public class Minefield {
         setAllCellsToUnknown();
     }
 
-    public void setAllCellsToUnknown(){
+    private void setAllCellsToUnknown(){
         for (int i = 0; i < mineField.length; i++) {
             for (int j = 0; j < mineField[i].length; j++) {
                 mineField[i][j] = new Cell(false,false,0,false);
@@ -55,7 +55,7 @@ public class Minefield {
         }
     }
 
-    public void printMinefield() {
+    private void printMinefield() {
         for (Cell[] aMineField : mineField) {
             System.out.println();
             for (Cell anAMineField : aMineField) {
@@ -65,7 +65,17 @@ public class Minefield {
     }
 
     public void populateMines() {
+        for (int i = 0; i < numOfMines; i++) {
 
+            int mineRow = (int) Math.random()*rows;
+            int mineCol = (int) Math.random()*columns;
+            if(!mineField[mineRow][mineCol].isBomb()) {
+                mineField[mineRow][mineCol].setBomb(true);
+            } else {
+                i--;
+            }
+
+        }
     }
 
     public void checkCell(int row, int columns) {
