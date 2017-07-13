@@ -60,17 +60,22 @@ public class Minefield {
     }
 
     public void printMinefield() {
-        int rows = mineField.length;
+        int rows = 1;
+        for (int i = 0; i <= columns; i++) {
+            System.out.print(i +"\t");
+        }
+        System.out.println();
+        for (int i = 0; i <= columns; i++) {
+            System.out.print("____");
+        }
+        System.out.println();
         for (Cell[] aMineField : mineField) {
-            System.out.print(rows + "\t");
-            --rows;
+            System.out.printf("%2d|\t", rows);
+            ++rows;
             for (Cell anAMineField : aMineField) {
                 System.out.print(anAMineField.toString() + "\t");
             }
             System.out.println();
-        }
-        for (int i = 0; i <= columns; i++) {
-            System.out.print(i +"\t");
         }
     }
 
@@ -88,6 +93,14 @@ public class Minefield {
     }
 
     public void checkCell(int row, int columns) {
+        if (mineField[row][columns].isBomb()){
+            gameOver();
+        } else {
+            mineField[row][columns].setKnown(true);
+            if (mineField[row][columns].getNumOfMinesNearby() == 0){
+                openAllNearbyZeros(row, columns);
+            }
+        }
     }
 
     private void showNumMinesNearby() {
@@ -96,14 +109,14 @@ public class Minefield {
 
                 //Top left Corner
                 if (i==0 && j==0){
-                    checkBelow(i,j);
+                    checkBelowForBomb(i,j);
                     checkRight(i,j);
                     checkBottomRight(i,j);
                 }
 
                 //Top
                 else if(i == 0 && j > 0 && j < mineField[i].length-1){
-                    checkBelow(i,j);
+                    checkBelowForBomb(i,j);
                     checkRight(i,j);
                     checkBottomRight(i,j);
                     checkLeft(i,j);
@@ -112,7 +125,7 @@ public class Minefield {
 
                 //top Right Corner
                 else if(i == 0 && j == mineField[i].length-1){
-                    checkBelow(i,j);
+                    checkBelowForBomb(i,j);
                     checkLeft(i,j);
                     checkBottomLeft(i,j);
                 }
@@ -124,7 +137,7 @@ public class Minefield {
                     checkTopLeft(i,j);
                     checkLeft(i,j);
                     checkBottomLeft(i,j);
-                    checkBelow(i, j);
+                    checkBelowForBomb(i, j);
 
                 }
 
@@ -155,7 +168,7 @@ public class Minefield {
                     checkRight(i, j);
                     checkTopRight(i, j);
                     checkAbove(i, j);
-                    checkBelow(i, j);
+                    checkBelowForBomb(i, j);
                     checkBottomRight(i, j);
                 }
                 else {
@@ -169,7 +182,7 @@ public class Minefield {
     private void checkAll(int i, int j) {
         checkBottomRight(i, j);
         checkBottomLeft(i, j);
-        checkBelow(i, j);
+        checkBelowForBomb(i, j);
         checkAbove(i, j);
         checkTopRight(i, j);
         checkRight(i, j);
@@ -177,8 +190,10 @@ public class Minefield {
         checkLeft(i, j);
     }
 
-    public void openAllNearbyZeros() {
-
+    public void openAllNearbyZeros(int i, int j) {
+        if (getCellBelow(i,j).getNumOfMinesNearby() == 0){
+            getCellBelow(i,j).setKnown(true);
+        }
     }
 
     public void gameOver() {
@@ -189,11 +204,18 @@ public class Minefield {
 
     }
 
-    private void checkBelow(int i, int j){
-        if (mineField[i + 1][j].isBomb()) {
+    private Cell getCellBelow(int i, int j){
+        return mineField[i+1][j];
+    }
+
+    private Cell getCellRight(int i, int j){
+        return mineField[i][j+1];
+    }
+
+    private void checkBelowForBomb(int i, int j){
+        if (getCellBelow(i,j).isBomb()) {
             mineField[i][j].setNumOfMinesNearby(mineField[i][j].getNumOfMinesNearby() + 1);
         }
-
     }
     private void checkRight(int i, int j){
         if (mineField[i][j + 1].isBomb()) {

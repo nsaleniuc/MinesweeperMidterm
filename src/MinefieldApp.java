@@ -26,7 +26,7 @@ public class MinefieldApp {
         int x = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
         System.out.println("column: ");
         int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
-        minefield.checkCell(x,y);
+        minefield.checkCell(x-1,y-1);
     }
 
     private static boolean checkIfUserWantsCustomGame() {
