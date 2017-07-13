@@ -94,12 +94,12 @@ public class Minefield {
     }
 
     public void checkCell(int row, int columns) {
-        if (mineField[row][columns].isBomb()){
+        if (mineField[columns][row].isBomb()){
             gameOver();
         } else {
-            mineField[row][columns].setKnown(true);
-            if (mineField[row][columns].getNumOfMinesNearby() == 0){
-                openAllNearbyZeros(row, columns);
+            mineField[columns][row].setKnown(true);
+            if (mineField[columns][row].getNumOfMinesNearby() == 0){
+                openAllNearbyZeros(columns, row);
             }
         }
     }
@@ -230,8 +230,21 @@ public class Minefield {
 
     }
 
-    public void checkIfGameWon() {
-
+    public boolean checkIfGameWon() {
+        int numUnknownCells = 0;
+        boolean isWon = false;
+        for (int i = 0; i < mineField.length ; i++) {
+            for (int j = 0; j < mineField[i].length; j++) {
+                if (!mineField[i][j].isKnown()) {
+                    numUnknownCells++;
+                }
+            }
+        }
+        if (numUnknownCells == numOfMines) {
+            System.out.println("YOU WIN");
+            isWon = true;
+        }
+        return  isWon;
     }
 
     private Cell getCellBelow(int i, int j){

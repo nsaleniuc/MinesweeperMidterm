@@ -24,9 +24,7 @@ public class MinefieldApp {
             }
 
             minefield.printMinefield();
-            System.out.println("Continue y/n");
-            inputValidator.checkForUserContinue("would youlike to keep going? ");
-        }while(inputValidator.isUserCont());
+        }while(!minefield.checkIfGameWon());
     }
 private static void setFlag(){
     System.out.println("Where would you like to set a flag?\nrow: ");

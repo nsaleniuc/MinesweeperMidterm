@@ -154,20 +154,20 @@ public class InputValidator {
         return userCont;
     }
 
-    public boolean checkForDuplicateCountry(String country, String pathName){
-        String[] countries;
-        boolean isDuplicate = false;
-        try {
-            countries = Files.readAllLines(new File(pathName).toPath()).toArray(new String[0]);
-            for (String country1 : countries){
-                if (country1.equalsIgnoreCase(country)){
-                    isDuplicate = true;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return isDuplicate;
-    }
+//    public boolean checkForDuplicateCountry(String country, String pathName){
+//        String[] countries;
+//        boolean isDuplicate = false;
+//        try {
+//            countries = Files.readAllLines(new File(pathName).toPath()).toArray(new String[0]);
+//            for (String country1 : countries){
+//                if (country1.equalsIgnoreCase(country)){
+//                    isDuplicate = true;
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return isDuplicate;
+//    }
 
 }
