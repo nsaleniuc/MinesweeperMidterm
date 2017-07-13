@@ -75,12 +75,12 @@ public class Cell {
             if (isBomb) {
                 return "*";
             }
-            if (isFlag) {
-                return "#";
-            } else {
+            else {
                 return String.valueOf(numOfMinesNearby);
             }
-        } else {
+        } else if (isFlag) {
+            return "#";
+        }else {
             return "[]";
         }
     }

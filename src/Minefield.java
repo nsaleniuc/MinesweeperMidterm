@@ -205,12 +205,24 @@ public class Minefield {
         for (int k = 0; k < cellsNearby.size(); k++) {
             if (!cellsNearby.get(k).isKnown()) {
                 if (cellsNearby.get(k).getNumOfMinesNearby() == 0) {
-                    cellsNearby.get(k).setKnown(true);
-                    openAllNearbyZeros(cellsNearby.get(k).getY(), cellsNearby.get(k).getX());
+                    if(!cellsNearby.get(k).isFlag()){
+                        cellsNearby.get(k).setKnown(true);
+                        openAllNearbyZeros(cellsNearby.get(k).getY(), cellsNearby.get(k).getX());
+                    }
                 }else if (!cellsNearby.get(k).isBomb()){
-                    cellsNearby.get(k).setKnown(true);
+                    if (!cellsNearby.get(k).isFlag()) {
+                        cellsNearby.get(k).setKnown(true);
+                    }
                 }
             }
+        }
+    }
+    public void setFlag(int i, int j){
+
+        if(mineField[i][j].isFlag()){
+            mineField[i][j].setFlag(false);
+        }else{
+            mineField[i][j].setFlag(true);
         }
     }
 

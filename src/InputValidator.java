@@ -116,7 +116,7 @@ public class InputValidator {
         return userCont;
     }
 
-    public boolean checkForValidChoice(String choice1, String choice2){
+    public String checkForValidChoice(String choice1, String choice2){
         boolean validChoice;
         String answer = input.nextLine();
         do {
@@ -132,7 +132,7 @@ public class InputValidator {
                 answer = input.nextLine();
             }
         }while (!validChoice);
-        return userCont;
+        return answer;
     }
 
     public String getNonEmptyString(String prompt){
