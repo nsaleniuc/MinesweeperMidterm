@@ -14,8 +14,19 @@ public class MinefieldApp {
         }else {
             getDifficultyToPlay();
         }
+
+        minefield.printMinefield();
+        openSelectedCell();
         minefield.printMinefield();
 
+    }
+
+    private static void openSelectedCell() {
+        System.out.println("\nenter coordinates of desired cell: \nrow: ");
+        int x = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
+        System.out.println("column: ");
+        int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
+        minefield.checkCell(x,y);
     }
 
     private static boolean checkIfUserWantsCustomGame() {

@@ -54,17 +54,23 @@ public class Minefield {
     private void setAllCellsToUnknown() {
         for (int i = 0; i < mineField.length; i++) {
             for (int j = 0; j < mineField[i].length; j++) {
-                mineField[i][j] = new Cell(false, false, 0, true);
+                mineField[i][j] = new Cell(false, false, 0, false);
             }
         }
     }
 
     public void printMinefield() {
+        int rows = mineField.length;
         for (Cell[] aMineField : mineField) {
-            System.out.println();
+            System.out.print(rows + "\t");
+            --rows;
             for (Cell anAMineField : aMineField) {
                 System.out.print(anAMineField.toString() + "\t");
             }
+            System.out.println();
+        }
+        for (int i = 0; i <= columns; i++) {
+            System.out.print(i +"\t");
         }
     }
 
@@ -82,7 +88,6 @@ public class Minefield {
     }
 
     public void checkCell(int row, int columns) {
-        Point userPoint = new Point(columns,row);
     }
 
     private void showNumMinesNearby() {
@@ -156,8 +161,6 @@ public class Minefield {
                 else {
                     checkAll(i, j);
                 }
-
-
 
             }
         }

@@ -61,7 +61,7 @@ public class Cell {
                 return String.valueOf(numOfMinesNearby);
             }
         } else {
-            return "-";
+            return "[]";
         }
     }
 }
