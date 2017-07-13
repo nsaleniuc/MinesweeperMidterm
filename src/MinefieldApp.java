@@ -19,7 +19,8 @@ public class MinefieldApp {
     }
 
     private static boolean checkIfUserWantsCustomGame() {
-        System.out.println("Would you like to set the grid size and number of bombs? (y/n)");
+        System.out.println("Welcome to Minesweeper!\nWould you like to set the grid size and number of bombs?\n" +
+                "'y' to create your own grid, 'n' to choose from pre-set difficulty.");
         return inputValidator.checkForValidChoice("y", "n");
     }
 
@@ -37,7 +38,7 @@ public class MinefieldApp {
     }
 
     private static void getDifficultyToPlay() {
-        System.out.println("Welcome to Minesweeper!\nChoose the level of difficulty to play: ");
+        System.out.println("Choose the level of difficulty to play: ");
         System.out.print("Beginner - 1\nIntermediate - 2\nExpert - 3\nChoose 1, 2, or 3: ");
         int menuChoice = inputValidator.getValidIntBetweenTwoNumbers(1,3);
         setUpMineField(menuChoice);
