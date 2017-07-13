@@ -22,22 +22,23 @@ public class MinefieldApp {
             }else if (userSelection.equalsIgnoreCase("F")){
                 setFlag();
             }
+            minefield.checkIfGameWon();
 
             minefield.printMinefield();
-        }while(!minefield.checkIfGameWon());
+        }while(!minefield.isGameOver());
     }
 private static void setFlag(){
-    System.out.println("Where would you like to set a flag?\nrow: ");
+    System.out.println("Where would you like to set a flag?\ncolumn: ");
     int x = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
-    System.out.println("column: ");
+    System.out.println("row: ");
     int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
     minefield.setFlag(x-1,y-1);
 }
     private static void openSelectedCell() {
 
-        System.out.println("\nenter coordinates of desired cell: \nrow: ");
+        System.out.println("\nenter coordinates of desired cell: \ncolumn: ");
         int x = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
-        System.out.println("column: ");
+        System.out.println("row: ");
         int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
         minefield.checkCell(x-1,y-1);
     }

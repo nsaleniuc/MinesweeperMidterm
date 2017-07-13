@@ -9,6 +9,15 @@ public class Minefield {
     private int numOfMines;
     private int rows;
     private int columns;
+    private boolean isGameOver;
+
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        isGameOver = gameOver;
+    }
 
     public Cell[][] getMineField() {
         return mineField;
@@ -189,16 +198,7 @@ public class Minefield {
         }
     }
 
-    private void checkAll(int i, int j) {
-        getCellBottomRight(i, j);
-        getCellBottomLeft(i, j);
-        getCellBelow(i, j);
-        getCellAbove(i, j);
-        getCellTopRight(i, j);
-        getCellRight(i, j);
-        getCellTopLeft(i, j);
-        getCellLeft(i, j);
-    }
+
 
     public void openAllNearbyZeros(int i, int j) {
         ArrayList<Cell> cellsNearby = getListOfCellsNearby(i,j);
@@ -227,12 +227,17 @@ public class Minefield {
     }
 
     public void gameOver() {
-
+        System.out.println("YOU LOSE!");
+        for (int i = 0; i < mineField.length; i++) {
+            for (int j = 0; j < mineField[i].length; j++) {
+                mineField[i][j].setKnown(true);
+            }
+        }
+        isGameOver = true;
     }
 
-    public boolean checkIfGameWon() {
+    public void checkIfGameWon() {
         int numUnknownCells = 0;
-        boolean isWon = false;
         for (int i = 0; i < mineField.length ; i++) {
             for (int j = 0; j < mineField[i].length; j++) {
                 if (!mineField[i][j].isKnown()) {
@@ -242,9 +247,8 @@ public class Minefield {
         }
         if (numUnknownCells == numOfMines) {
             System.out.println("YOU WIN");
-            isWon = true;
+            isGameOver = true;
         }
-        return  isWon;
     }
 
     private Cell getCellBelow(int i, int j){
