@@ -46,14 +46,14 @@ public class InputValidator {
         return userDouble;
     }
 
-    public int getValidPositiveInt() {
+    public int getValidPositiveInt(int i) {
         boolean validInt = false;
         do {
             if (input.hasNextInt()) {
                 userInt = input.nextInt();
                 validInt = true;
-                if(userInt < 0){
-                    System.out.println("Not a positive integer! Please enter a positive integer: ");
+                if(userInt < i){
+                    System.out.println("Grid size must be 3 x 3 or greater: ");
                     validInt = false;
                 }
             } else {

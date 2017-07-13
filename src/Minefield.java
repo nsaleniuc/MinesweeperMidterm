@@ -243,11 +243,17 @@ public class Minefield {
                 if (!mineField[i][j].isKnown()) {
                     numUnknownCells++;
                 }
+
             }
         }
         if (numUnknownCells == numOfMines) {
             System.out.println("YOU WIN");
             isGameOver = true;
+            for (int i = 0; i < mineField.length; i++) {
+                for (int j = 0; j < mineField[i].length; j++) {
+                    mineField[i][j].setKnown(true);
+                }
+            }
         }
     }
 

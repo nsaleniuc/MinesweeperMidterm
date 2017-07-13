@@ -10,22 +10,25 @@ public class MinefieldApp {
     public static void main(String[] args) {
 
 
-
-        int menuChoice = getDifficultyToPlay();
-        setUpMineField(menuChoice);
-        minefield.printMinefield();
         do {
-            System.out.println("Would you like to open a cell or set a flag? (F - Flag O - Open)");
-            String userSelection = inputValidator.checkForValidChoice("F", "O");
-            if (userSelection.equalsIgnoreCase("O")){
-                openSelectedCell();
-            }else if (userSelection.equalsIgnoreCase("F")){
-                setFlag();
-            }
-            minefield.checkIfGameWon();
-
+            int menuChoice = getDifficultyToPlay();
+            setUpMineField(menuChoice);
             minefield.printMinefield();
-        }while(!minefield.isGameOver());
+            do {
+                System.out.println("Would you like to open a cell or set a flag? (F - Flag O - Open)");
+                String userSelection = inputValidator.checkForValidChoice("F", "O");
+                if (userSelection.equalsIgnoreCase("O")) {
+                    openSelectedCell();
+                } else if (userSelection.equalsIgnoreCase("F")) {
+                    setFlag();
+                }
+                minefield.checkIfGameWon();
+
+                minefield.printMinefield();
+            } while (!minefield.isGameOver());
+            inputValidator.checkForUserContinue("Would you like to play again? (y/n)");
+        }while(inputValidator.isUserCont());
+        System.out.println("Thanks for playing!");
     }
 private static void setFlag(){
     System.out.println("Where would you like to set a flag?\ncolumn: ");
@@ -50,13 +53,13 @@ private static void setFlag(){
 //    }
 
     private static void getUserSelection() {
-        System.out.println("\nSelect how many rows, columns, and bombs would like: ");
+        System.out.println("\nSelect how many rows, columns, and bombs would like (Grid must be 3 x 3 or greater): ");
         System.out.print("Row: ");
-        int rowSelected = inputValidator.getValidPositiveInt();
+        int rowSelected = inputValidator.getValidPositiveInt(3);
         System.out.print("Column: ");
-        int colSelected = inputValidator.getValidPositiveInt();
+        int colSelected = inputValidator.getValidPositiveInt(3);
         System.out.print("Bombs: ");
-        int bombs = inputValidator.getValidPositiveInt();
+        int bombs = inputValidator.getValidPositiveInt(0);
         //TODO add a check so that the bombs cant exceed the number of cells
         minefield = new Minefield(bombs, rowSelected, colSelected);
 
