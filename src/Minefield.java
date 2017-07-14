@@ -1,4 +1,15 @@
+import sun.applet.Main;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -184,7 +195,7 @@ public class Minefield {
                         //calls itself to keep opening cells that are zeros
                         openAllNearbyZeros(cellsNearby.get(k).getY(), cellsNearby.get(k).getX());
                     }
-                }else if (!cellsNearby.get(k).isBomb()) {
+                } else if (!cellsNearby.get(k).isBomb()) {
                     if (!cellsNearby.get(k).isFlag()) {
                         cellsNearby.get(k).setKnown(true);
                     }
@@ -204,12 +215,24 @@ public class Minefield {
     //show where all mines are after you lose
     public void gameOver() {
         System.out.println("YOU LOSE! \u2639");
+        playSound("bomb_x.wav");
         for (int i = 0; i < mineField.length; i++) {
             for (int j = 0; j < mineField[i].length; j++) {
                 mineField[i][j].setKnown(true);
             }
         }
         isGameOver = true;
+    }
+
+    public static void playSound(final String url) {
+        InputStream in = null;
+        try {
+            in = new FileInputStream(url);
+            AudioStream as = new AudioStream(in);
+            AudioPlayer.player.start(as);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //if number of uncovered cells(mines) equals amount of bombs, you win
@@ -224,12 +247,13 @@ public class Minefield {
         }
         if (numUnknownCells == numOfMines) {
             System.out.println("YOU WIN \u263A");
+            playSound("smb_stage_clear.wav");
             isGameOver = true;
             for (int i = 0; i < mineField.length; i++) {
                 for (int j = 0; j < mineField[i].length; j++) {
                     if (mineField[i][j].isBomb()) {
                         mineField[i][j].setFlag(true);
-                    }else {
+                    } else {
                         mineField[i][j].setKnown(true);
                     }
                 }
