@@ -227,7 +227,11 @@ public class Minefield {
             isGameOver = true;
             for (int i = 0; i < mineField.length; i++) {
                 for (int j = 0; j < mineField[i].length; j++) {
-                    mineField[i][j].setKnown(true);
+                    if (mineField[i][j].isBomb()) {
+                        mineField[i][j].setFlag(true);
+                    }else {
+                        mineField[i][j].setKnown(true);
+                    }
                 }
             }
         }
