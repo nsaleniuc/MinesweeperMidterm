@@ -10,7 +10,15 @@ public class Cell {
     private boolean isKnown;
     private int x;
     private int y;
+    private int pictureNum;
 
+    public int getPictureNum() {
+        return pictureNum;
+    }
+
+    public void setPictureNum(int pictureNum) {
+        this.pictureNum = pictureNum;
+    }
 
     public Cell(boolean isBomb, boolean isFlag, int numOfMinesNearby, boolean isKnown, int x, int y) {
         this.isBomb = isBomb;
@@ -19,6 +27,12 @@ public class Cell {
         this.isKnown = isKnown;
         this.x = x;
         this.y = y;
+    }
+    public Cell(boolean isBomb, boolean isFlag, int numOfMinesNearby, boolean isKnown) {
+        this.isBomb = isBomb;
+        this.isFlag = isFlag;
+        this.numOfMinesNearby = numOfMinesNearby;
+        this.isKnown = isKnown;
     }
 
     public int getX() {

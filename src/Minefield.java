@@ -1,13 +1,7 @@
-import sun.applet.Main;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.awt.*;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -21,6 +15,19 @@ public class Minefield {
     private int rows;
     private int columns;
     private boolean isGameOver;
+    private boolean isGameWon;
+
+    public int getNumOfMines() {
+        return numOfMines;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
 
     public boolean isGameOver() {
         return isGameOver;
@@ -185,7 +192,7 @@ public class Minefield {
     }
 
     //used recursion to open all empty cells until it finds a cell with a number.
-    private void openAllNearbyZeros(int i, int j) {
+    public void openAllNearbyZeros(int i, int j) {
         ArrayList<Cell> cellsNearby = getListOfCellsNearby(i, j);
         for (int k = 0; k < cellsNearby.size(); k++) {
             if (!cellsNearby.get(k).isKnown()) {
@@ -236,7 +243,7 @@ public class Minefield {
     }
 
     //if number of uncovered cells(mines) equals amount of bombs, you win
-    public void checkIfGameWon() {
+    public boolean checkIfGameWon() {
         int numUnknownCells = 0;
         for (int i = 0; i < mineField.length; i++) {
             for (int j = 0; j < mineField[i].length; j++) {
@@ -249,6 +256,7 @@ public class Minefield {
             System.out.println("YOU WIN \u263A");
             playSound("smb_stage_clear.wav");
             isGameOver = true;
+            isGameWon  =true;
             for (int i = 0; i < mineField.length; i++) {
                 for (int j = 0; j < mineField[i].length; j++) {
                     if (mineField[i][j].isBomb()) {
@@ -258,7 +266,14 @@ public class Minefield {
                     }
                 }
             }
+        }else {
+            isGameWon =false;
         }
+        return isGameWon;
+    }
+
+    public String displayWinMessage(){
+        return "YOU WIN \u263A";
     }
 
     private Cell getCellBelow(int i, int j) {
