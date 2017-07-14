@@ -50,9 +50,7 @@ public class Board extends JPanel {
         for (int i = 0; i < NUM_IMAGES; i++) {
             img[i] = (new ImageIcon("C:\\Users\\user\\IdeaProjects\\MinesweeperMidterm\\src\\Images\\" + i + ".png")).getImage().getScaledInstance(20, 20, 0);
         }
-
         setDoubleBuffered(true);
-
         addMouseListener(new MinesAdapter());
         newGame();
     }
@@ -64,7 +62,7 @@ public class Board extends JPanel {
         N_COLS = minefield.getColumns();
         N_ROWS = minefield.getRows();
         N_MINES = minefield.getNumOfMines();
-        inGame = minefield.isGameOver();
+        inGame = true;
         mines_left = N_MINES;
 
         all_cells = N_ROWS * N_COLS;
@@ -90,20 +88,11 @@ public class Board extends JPanel {
 
                 cell = field[i][j];
 
-                if (!inGame) {
-                    if (!cell.isKnown()) {
-                        if (cell.isFlag()){
-                            cell.setPictureNum(DRAW_MARK);
-                        }else {
-                            cell.setPictureNum(DRAW_COVER);
-                        }
-
-                    } else {
-                        if (cell.isBomb()) {
-                            cell.setPictureNum(DRAW_MINE);
-                        }else {
-                            cell.setPictureNum(cell.getNumOfMinesNearby());
-                        }
+                if (inGame) {
+                    setPictures(cell);
+                } else {
+                    if (cell.isKnown()){
+                        setPictures(cell);
                     }
                 }
                 g.drawImage(img[cell.getPictureNum()], (j * CELL_SIZE),
@@ -111,13 +100,21 @@ public class Board extends JPanel {
 
             }
         }
+    }
 
-        minefield.checkIfGameWon();
-        inGame = minefield.isGameOver();
+    private void setPictures( Cell cell){
+        if (!cell.isKnown()) {
+            if (cell.isFlag()){
+                cell.setPictureNum(DRAW_MARK);
+            }else {
+                cell.setPictureNum(DRAW_COVER);
+            }
 
-        if (inGame){
-            if(minefield.checkIfGameWon()) {
-                statusbar.setText(minefield.displayWinMessage());
+        } else {
+            if (cell.isBomb()) {
+                cell.setPictureNum(DRAW_MINE);
+            }else {
+                cell.setPictureNum(cell.getNumOfMinesNearby());
             }
         }
     }
@@ -137,7 +134,8 @@ public class Board extends JPanel {
             boolean rep = false;
 
 
-            if (inGame) {
+            if (!inGame) {
+                displayBoard();
                 newGame();
                 repaint();
             }
@@ -168,26 +166,45 @@ public class Board extends JPanel {
                     }
 
                 } else {
+                    if(inGame) {
 
-                    if (field[cRow][cCol].isBomb() && !field[cRow][cCol].isKnown()) {
-                        field[cRow][cCol].setKnown(true);
-                        //TODO SHOW BOARD IF BOMB IS HIT
-                        inGame = true;
-                    }
+                        if (field[cRow][cCol].isBomb() && !field[cRow][cCol].isKnown()) {
+                            field[cRow][cCol].setKnown(true);
+                            //TODO SHOW BOARD IF BOMB IS HIT
+                            displayBoard();
+                            rep = true;
+                            inGame = false;
+                            minefield.gameOver();
+                            statusbar.setText("GAME OVER \u2639 (CLICK ANYWHERE TO START NEW GAME)");
+                        }
 
-                    if ((!field[cRow][cCol].isKnown()) && !field[cRow][cCol].isBomb()) {
+                        if ((!field[cRow][cCol].isKnown()) && !field[cRow][cCol].isBomb()) {
 
-                        field[cRow][cCol].setKnown(true);
-                        rep = true;
+                            field[cRow][cCol].setKnown(true);
+                            rep = true;
 
-                        if (field[cRow][cCol].getNumOfMinesNearby() == 0)
-                            find_empty_cells(cRow, cCol);
+                            if (field[cRow][cCol].getNumOfMinesNearby() == 0)
+                                find_empty_cells(cRow, cCol);
+                        }
+                    }else {
+                        displayBoard();
                     }
                 }
-
+                if(minefield.checkIfGameWon()){
+                    statusbar.setText("YOU WON! \u263A (CLICK ANYWHERE TO PLAY AGAIN)");
+                    inGame = false;
+                }
                 if (rep)
                     repaint();
 
+            }
+        }
+    }
+
+    private void displayBoard() {
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                field[i][j].isKnown();
             }
         }
     }
