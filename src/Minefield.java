@@ -260,6 +260,7 @@ public class Minefield {
             playSound("smb_stage_clear.wav");
             isGameOver = true;
             isGameWon = true;
+
             for (int i = 0; i < mineField.length; i++) {
                 for (int j = 0; j < mineField[i].length; j++) {
                     if (mineField[i][j].isBomb()) {

@@ -3,9 +3,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import java.util.Random;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,15 +14,12 @@ public class Board extends JPanel {
 
     private final int COVER_FOR_CELL = 10;
     private final int MARK_FOR_CELL = 10;
-    private final int EMPTY_CELL = 0;
     private final int MINE_CELL = 9;
     private final int COVERED_MINE_CELL = MINE_CELL + COVER_FOR_CELL;
-    private final int MARKED_MINE_CELL = COVERED_MINE_CELL + MARK_FOR_CELL;
 
     private final int DRAW_MINE = 9;
     private final int DRAW_COVER = 10;
     private final int DRAW_MARK = 11;
-    private final int DRAW_WRONG_MARK = 12;
 
     private int N_MINES;
     private int N_ROWS;
@@ -48,7 +42,7 @@ public class Board extends JPanel {
         img = new Image[NUM_IMAGES];
 
         for (int i = 0; i < NUM_IMAGES; i++) {
-            img[i] = (new ImageIcon("C:\\Users\\steve\\IdeaProjects\\MinesweeperMidterm\\src\\Images\\" + i + ".png")).getImage().getScaledInstance(20, 20, 0);
+            img[i] = (new ImageIcon("src\\Images\\" + i + ".png")).getImage().getScaledInstance(20, 20, 0);
         }
         setDoubleBuffered(true);
         addMouseListener(new MinesAdapter());
@@ -58,7 +52,7 @@ public class Board extends JPanel {
 
     private void newGame() {
 
-        minefield = new Minefield(40, 16, 16);
+        minefield = new Minefield(5, 16, 16);
         N_COLS = minefield.getColumns();
         N_ROWS = minefield.getRows();
         N_MINES = minefield.getNumOfMines();
@@ -92,7 +86,7 @@ public class Board extends JPanel {
                 if (inGame) {
                     setPictures(cell);
                 } else {
-                    if (cell.isKnown()){
+                    if (cell.isKnown()) {
                         setPictures(cell);
                     }
                 }
@@ -103,18 +97,18 @@ public class Board extends JPanel {
         }
     }
 
-    private void setPictures( Cell cell){
+    private void setPictures(Cell cell) {
         if (!cell.isKnown()) {
-            if (cell.isFlag()){
+            if (cell.isFlag()) {
                 cell.setPictureNum(DRAW_MARK);
-            }else {
+            } else {
                 cell.setPictureNum(DRAW_COVER);
             }
 
         } else {
             if (cell.isBomb()) {
                 cell.setPictureNum(DRAW_MINE);
-            }else {
+            } else {
                 cell.setPictureNum(cell.getNumOfMinesNearby());
             }
         }
@@ -167,11 +161,10 @@ public class Board extends JPanel {
                     }
 
                 } else {
-                    if(inGame) {
+                    if (inGame) {
 
                         if (field[cRow][cCol].isBomb() && !field[cRow][cCol].isKnown()) {
                             field[cRow][cCol].setKnown(true);
-                            //TODO SHOW BOARD IF BOMB IS HIT
                             displayBoard();
                             rep = true;
                             inGame = false;
@@ -187,12 +180,13 @@ public class Board extends JPanel {
                             if (field[cRow][cCol].getNumOfMinesNearby() == 0)
                                 find_empty_cells(cRow, cCol);
                         }
-                    }else {
+                    } else {
                         displayBoard();
                     }
                 }
-                if(minefield.checkIfGameWon()){
+                if (minefield.checkIfGameWon()) {
                     statusbar.setText("YOU WON! \u263A (CLICK ANYWHERE TO PLAY AGAIN)");
+                    displayBoard();
                     inGame = false;
                 }
                 if (rep)
@@ -205,7 +199,12 @@ public class Board extends JPanel {
     private void displayBoard() {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
+                if (field[i][j].isBomb()){
+                    field[i][j].setPictureNum(DRAW_MARK);
+                    field[i][j].isKnown();
+                }else{
                 field[i][j].isKnown();
+                }
             }
         }
     }
