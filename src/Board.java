@@ -48,7 +48,7 @@ public class Board extends JPanel {
         img = new Image[NUM_IMAGES];
 
         for (int i = 0; i < NUM_IMAGES; i++) {
-            img[i] = (new ImageIcon("C:\\Users\\user\\IdeaProjects\\MinesweeperMidterm\\src\\Images\\" + i + ".png")).getImage().getScaledInstance(20, 20, 0);
+            img[i] = (new ImageIcon("C:\\Users\\steve\\IdeaProjects\\MinesweeperMidterm\\src\\Images\\" + i + ".png")).getImage().getScaledInstance(20, 20, 0);
         }
         setDoubleBuffered(true);
         addMouseListener(new MinesAdapter());
@@ -63,6 +63,7 @@ public class Board extends JPanel {
         N_ROWS = minefield.getRows();
         N_MINES = minefield.getNumOfMines();
         inGame = true;
+
         mines_left = N_MINES;
 
         all_cells = N_ROWS * N_COLS;

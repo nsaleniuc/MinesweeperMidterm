@@ -42,6 +42,9 @@ public class Minefield {
         this.numOfMines = numOfMines;
         this.rows = rows;
         this.columns = columns;
+        if (numOfMines > rows * columns) {
+            this.numOfMines = (rows * columns) - 1;
+        }
         this.mineField = new Cell[rows][columns];
         setAllCellsToUnknown();
         populateMines();
@@ -256,7 +259,7 @@ public class Minefield {
             System.out.println("YOU WIN \u263A");
             playSound("smb_stage_clear.wav");
             isGameOver = true;
-            isGameWon  =true;
+            isGameWon = true;
             for (int i = 0; i < mineField.length; i++) {
                 for (int j = 0; j < mineField[i].length; j++) {
                     if (mineField[i][j].isBomb()) {
@@ -266,13 +269,13 @@ public class Minefield {
                     }
                 }
             }
-        }else {
-            isGameWon =false;
+        } else {
+            isGameWon = false;
         }
         return isGameWon;
     }
 
-    public String displayWinMessage(){
+    public String displayWinMessage() {
         return "YOU WIN \u263A";
     }
 
