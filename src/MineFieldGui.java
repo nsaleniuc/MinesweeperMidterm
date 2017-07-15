@@ -1,5 +1,3 @@
-import javafx.scene.control.ToggleGroup;
-
 import javax.swing.*;
 
 /**
@@ -7,20 +5,14 @@ import javax.swing.*;
  */
 public class MineFieldGui {
     private JPanel base;
-    private JRadioButton radioButton1;
-    private JRadioButton radioButton2;
-    private JRadioButton radioButton3;
-    private JRadioButton radioButton4;
-    private JButton button1;
-    private JLabel heightLabel;
     private JButton startGameButton;
-    private JTextArea bombText;
-    private JTextArea heightTextArea;
-    private JTextArea widthEditText;
+    private JTextArea rowsEditText;
     private JRadioButton customChoice;
     private JRadioButton expertChoice;
     private JRadioButton mediumChoice;
     private JRadioButton easyChoice;
+    private JTextArea bombsEditText;
+    private JTextArea columnsEditText;
     private static JFrame frame = new JFrame("MineSweeper");
 
     public static void main(String[] args) {
@@ -32,15 +24,20 @@ public class MineFieldGui {
 
     private void createUIComponents(){
         startGameButton = new JButton();
-        bombText = new JTextArea();
-        heightTextArea = new JTextArea();
-        widthEditText = new JTextArea();
+        bombsEditText = new JTextArea();
+        rowsEditText = new JTextArea();
+        columnsEditText = new JTextArea();
         customChoice = new JRadioButton();
         easyChoice = new JRadioButton();
         mediumChoice = new JRadioButton();
         expertChoice = new JRadioButton();
         easyChoice.setSelected(true);
+        base = new JPanel();
         groupButtons();
+
+        startGameButton.addActionListener(e -> {
+            startGame();
+        });
     }
 
     private void groupButtons(){
@@ -49,7 +46,22 @@ public class MineFieldGui {
         buttonGroup.add(mediumChoice);
         buttonGroup.add(expertChoice);
         buttonGroup.add(customChoice);
+    }
 
+    private void startGame(){
+        if(easyChoice.isSelected()){
+            MineSweeperGui.startGui(9 ,9,10);
+            frame.setVisible(false);
+        } else if(mediumChoice.isSelected()){
+            MineSweeperGui.startGui(16 ,16,40);
+            frame.setVisible(false);
+        } else if(expertChoice.isSelected()){
+            MineSweeperGui.startGui(30 ,16,40);
+            frame.setVisible(false);
+        } else if(customChoice.isSelected()){
+            MineSweeperGui.startGui(Integer.parseInt(columnsEditText.getText()),Integer.parseInt(rowsEditText.getText()),Integer.parseInt(bombsEditText.getText()));
+            frame.setVisible(false);
+        }
     }
 
 }

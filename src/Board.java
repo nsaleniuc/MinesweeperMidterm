@@ -12,11 +12,6 @@ public class Board extends JPanel {
     private final int NUM_IMAGES = 13;
     private final int CELL_SIZE = 20;
 
-    private final int COVER_FOR_CELL = 10;
-    private final int MARK_FOR_CELL = 10;
-    private final int MINE_CELL = 9;
-    private final int COVERED_MINE_CELL = MINE_CELL + COVER_FOR_CELL;
-
     private final int DRAW_MINE = 9;
     private final int DRAW_COVER = 10;
     private final int DRAW_MARK = 11;
@@ -35,7 +30,7 @@ public class Board extends JPanel {
     private JLabel statusbar;
 
 
-    public Board(JLabel statusbar) {
+    public Board(JLabel statusbar, int columns, int rows, int bombs) {
 
         this.statusbar = statusbar;
 
@@ -46,13 +41,13 @@ public class Board extends JPanel {
         }
         setDoubleBuffered(true);
         addMouseListener(new MinesAdapter());
-        newGame();
+        newGame(columns, rows, bombs);
     }
 
 
-    private void newGame() {
+    private void newGame(int columns, int rows, int bombs) {
 
-        minefield = new Minefield(5, 16, 16);
+        minefield = new Minefield(bombs, rows, columns);
         N_COLS = minefield.getColumns();
         N_ROWS = minefield.getRows();
         N_MINES = minefield.getNumOfMines();
@@ -131,7 +126,7 @@ public class Board extends JPanel {
 
             if (!inGame) {
                 displayBoard();
-                newGame();
+                newGame(N_COLS, N_ROWS, N_MINES);
                 repaint();
             }
 

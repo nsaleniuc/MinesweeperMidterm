@@ -11,7 +11,7 @@ public class MineSweeperGui extends JFrame {
 
     private final JLabel statusbar;
 
-    public MineSweeperGui() {
+    public MineSweeperGui(int columns, int rows, int bombs) {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -21,16 +21,16 @@ public class MineSweeperGui extends JFrame {
         statusbar = new JLabel("");
         add(statusbar, BorderLayout.SOUTH);
 
-        Board board = new Board(statusbar);
+        Board board = new Board(statusbar, columns, rows, bombs);
 
         add(board);
 
         setResizable(true);
     }
 
-    public static void main(String[] args) {
+    public static void startGui(int columns, int rows, int bombs) {
         SwingUtilities.invokeLater(() -> {
-            JFrame ex = new MineSweeperGui();
+            JFrame ex = new MineSweeperGui(columns, rows, bombs);
             ex.setVisible(true);
         });
     }
