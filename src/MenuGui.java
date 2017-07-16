@@ -3,7 +3,7 @@ import javax.swing.*;
 /**
  * Created by user on 7/14/2017.
  */
-public class MineFieldGui {
+public class MenuGui {
     private JPanel base;
     private JButton startGameButton;
     private JTextArea rowsEditText;
@@ -16,7 +16,7 @@ public class MineFieldGui {
     private static JFrame frame = new JFrame("MineSweeper");
 
     public static void main(String[] args) {
-        frame.setContentPane(new MineFieldGui().base);
+        frame.setContentPane(new MenuGui().base);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -59,8 +59,12 @@ public class MineFieldGui {
             MineSweeperGui.startGui(30 ,16,40);
             frame.setVisible(false);
         } else if(customChoice.isSelected()){
-            MineSweeperGui.startGui(Integer.parseInt(columnsEditText.getText()),Integer.parseInt(rowsEditText.getText()),Integer.parseInt(bombsEditText.getText()));
-            frame.setVisible(false);
+            try {
+                MineSweeperGui.startGui(Integer.parseInt(columnsEditText.getText()), Integer.parseInt(rowsEditText.getText()), Integer.parseInt(bombsEditText.getText()));
+                frame.setVisible(false);
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(frame, "Please enter valid integers!");
+            }
         }
     }
 

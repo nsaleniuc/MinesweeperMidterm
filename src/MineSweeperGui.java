@@ -14,7 +14,6 @@ public class MineSweeperGui extends JFrame {
     public MineSweeperGui(int columns, int rows, int bombs) {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setLocationRelativeTo(null);
         setTitle("Minesweeper");
 
@@ -22,6 +21,7 @@ public class MineSweeperGui extends JFrame {
         add(statusbar, BorderLayout.SOUTH);
 
         Board board = new Board(statusbar, columns, rows, bombs);
+        setSize(columns*22, rows*24 + statusbar.getHeight());
 
         add(board);
 
