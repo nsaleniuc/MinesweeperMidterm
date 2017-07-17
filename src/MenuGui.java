@@ -22,7 +22,7 @@ public class MenuGui {
         frame.setVisible(true);
     }
 
-    private void createUIComponents(){
+    private void createUIComponents() {
         startGameButton = new JButton();
         bombsEditText = new JTextArea();
         rowsEditText = new JTextArea();
@@ -40,7 +40,7 @@ public class MenuGui {
         });
     }
 
-    private void groupButtons(){
+    private void groupButtons() {
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(easyChoice);
         buttonGroup.add(mediumChoice);
@@ -48,21 +48,21 @@ public class MenuGui {
         buttonGroup.add(customChoice);
     }
 
-    private void startGame(){
-        if(easyChoice.isSelected()){
-            MineSweeperGui.startGui(9 ,9,10);
+    private void startGame() {
+        if (easyChoice.isSelected()) {
+            MineSweeperGui.startGui(9, 9, 10);
             frame.setVisible(false);
-        } else if(mediumChoice.isSelected()){
-            MineSweeperGui.startGui(16 ,16,40);
+        } else if (mediumChoice.isSelected()) {
+            MineSweeperGui.startGui(16, 16, 40);
             frame.setVisible(false);
-        } else if(expertChoice.isSelected()){
-            MineSweeperGui.startGui(30 ,16,40);
+        } else if (expertChoice.isSelected()) {
+            MineSweeperGui.startGui(30, 16, 40);
             frame.setVisible(false);
-        } else if(customChoice.isSelected()){
+        } else if (customChoice.isSelected()) {
             try {
                 MineSweeperGui.startGui(Integer.parseInt(columnsEditText.getText()), Integer.parseInt(rowsEditText.getText()), Integer.parseInt(bombsEditText.getText()));
                 frame.setVisible(false);
-            }catch (Exception e){
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(frame, "Please enter valid integers!");
             }
         }

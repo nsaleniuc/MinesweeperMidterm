@@ -6,9 +6,6 @@ import javax.swing.SwingUtilities;
 
 public class MineSweeperGui extends JFrame {
 
-    private final int FRAME_WIDTH = 350;
-    private final int FRAME_HEIGHT = 400;
-
     private final JLabel statusbar;
 
     public MineSweeperGui(int columns, int rows, int bombs) {
@@ -21,7 +18,7 @@ public class MineSweeperGui extends JFrame {
         add(statusbar, BorderLayout.SOUTH);
 
         Board board = new Board(statusbar, columns, rows, bombs);
-        setSize(columns*22, rows*24 + statusbar.getHeight());
+        setSize(columns * 22, rows * 24 + statusbar.getHeight());
 
         add(board);
 

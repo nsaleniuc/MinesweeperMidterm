@@ -27,12 +27,6 @@ public class Cell {
         this.x = x;
         this.y = y;
     }
-    public Cell(boolean isBomb, boolean isFlag, int numOfMinesNearby, boolean isKnown) {
-        this.isBomb = isBomb;
-        this.isFlag = isFlag;
-        this.numOfMinesNearby = numOfMinesNearby;
-        this.isKnown = isKnown;
-    }
 
     public int getX() {
         return x;

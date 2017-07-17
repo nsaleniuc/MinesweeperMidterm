@@ -63,11 +63,6 @@ public class Board extends JPanel {
 
     }
 
-
-    public void find_empty_cells(int j, int i) {
-        minefield.openAllNearbyZeros(j, i);
-    }
-
     @Override
     public void paintComponent(Graphics g) {
 
@@ -173,7 +168,7 @@ public class Board extends JPanel {
                             rep = true;
 
                             if (field[cRow][cCol].getNumOfMinesNearby() == 0)
-                                find_empty_cells(cRow, cCol);
+                                minefield.openAllNearbyZeros(cRow, cCol);
                         }
                     } else {
                         displayBoard();
@@ -194,11 +189,11 @@ public class Board extends JPanel {
     private void displayBoard() {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
-                if (field[i][j].isBomb()){
+                if (field[i][j].isBomb()) {
                     field[i][j].setPictureNum(DRAW_MARK);
                     field[i][j].isKnown();
-                }else{
-                field[i][j].isKnown();
+                } else {
+                    field[i][j].isKnown();
                 }
             }
         }
