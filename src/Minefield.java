@@ -335,19 +335,14 @@ class Minefield {
         int numUnknownCells = 0;
         for (Cell[] cellArray : mineField) {
             for (Cell cell : cellArray) {
-                numUnknownCells = incrementNumOfUnkownCells(cell);
+                if (isCellKnown(cell)) {
+                    numUnknownCells++;
+                }
             }
         }
         return numUnknownCells;
     }
 
-    private int incrementNumOfUnkownCells(Cell cell) {
-        int numUnknownCells = 0;
-        if (isCellKnown(cell)) {
-            numUnknownCells++;
-        }
-        return numUnknownCells;
-    }
 
     private Cell getCellBelow(int i, int j) {
         return mineField[i + 1][j];
