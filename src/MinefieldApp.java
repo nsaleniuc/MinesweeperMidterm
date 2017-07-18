@@ -68,7 +68,7 @@ public class MinefieldApp {
         int y = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField().length);
         System.out.println("Column: ");
         int x = inputValidator.getValidIntBetweenTwoNumbers(1, minefield.getMineField()[0].length);
-        minefield.checkCell(x - 1, y - 1);
+        minefield.checkSelectedCell(x - 1, y - 1);
     }
 
     //Asks the user to create a gameboard for custom game

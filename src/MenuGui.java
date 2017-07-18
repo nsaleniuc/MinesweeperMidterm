@@ -35,9 +35,7 @@ public class MenuGui {
         base = new JPanel();
         groupButtons();
 
-        startGameButton.addActionListener(e -> {
-            startGame();
-        });
+        startGameButton.addActionListener(e -> startGame());
     }
 
     private void groupButtons() {
@@ -56,7 +54,7 @@ public class MenuGui {
             MineSweeperGui.startGui(16, 16, 40);
             frame.setVisible(false);
         } else if (expertChoice.isSelected()) {
-            MineSweeperGui.startGui(30, 16, 40);
+            MineSweeperGui.startGui(30, 16, 99);
             frame.setVisible(false);
         } else if (customChoice.isSelected()) {
             try {
